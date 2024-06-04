@@ -1,0 +1,33 @@
+
+.navbar {
+    background-color: #F5F5DC !important;
+    color: #795548 !important;
+    width: 100%;
+    opacity: 0.8;
+}
+
+.navbar-logo {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-options > Button {
+    font-weight: 800 !important;
+}
+
+.navbar-options > Button:hover {
+    color: #0a8d48;
+    background-color: transparent;
+}
+
+.navbar-loginBtn:hover {
+    background: transparent;
+    color: #0a8d48;
+}

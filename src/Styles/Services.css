@@ -1,0 +1,51 @@
+
+.services {
+    padding: 0 6rem 6rem 6rem;
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(244, 242, 240);
+}
+
+.services-btn > Button {
+    color: #000000;
+    font-size: 1.1rem;
+    padding: 15px;
+    text-transform: inherit !important;
+    font-weight: 600;
+
+    margin-right: 10px;
+    border-width: 2px !important;
+    border-radius: 8px !important;
+}
+
+.services-btn > Button:hover {
+    color: #0a8d48;
+    border-width: 2px !important;
+}
+
+.services-rent, .services-lend{
+    display: flex;
+    align-items: center;
+}
+
+.services-rentInfo, .services-lendInfo{
+    margin-left: 3rem;
+    text-align: justify;
+}
+
+.services-rent > img, .services-lend > img{
+    height: 90vh;
+    width: 30vw;
+    border-radius: 8px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.services-rentInfo, .services-lendInfo{
+    color: gray;
+    line-height: 2rem;
+}
+
+.services-rentInfo > Button:hover, .services-lendInfo > Button:hover{
+    background-color: #0a8d48;
+}
