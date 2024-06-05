@@ -29,7 +29,11 @@ const router = createBrowserRouter([
   {
     path: '/lend',
     element: <LendEquipmentPage />
-  }
+  },
+  {
+    path: '/:userId',
+    element: <LandingHomePage />
+  }
 ]);
 
 function App() {
