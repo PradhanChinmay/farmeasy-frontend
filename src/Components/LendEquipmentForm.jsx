@@ -92,6 +92,7 @@ const LendEquipmentForm = ({ userId }) => {
           />
           <FormControl fullWidth required className="custom-textfield">
             <Select
+            placeholder="Equipment Type"
               value={equipmentType}
               onChange={(e) => setEquipmentType(e.target.value)}
               displayEmpty

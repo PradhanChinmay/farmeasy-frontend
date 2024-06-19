@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
@@ -33,8 +34,10 @@ function Register() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(body), // Convert body to JSON string
+            body: JSON.stringify(body), // Convert body to JSON string
         });
         const data = await response.json();
+        console.log(data);
         console.log(data);
         if (data.success) {
             setRegisterSuccess(true);
@@ -48,21 +51,32 @@ function Register() {
             } else {
                 setErrorMessage('Registration failed. Please try again.');
             }
+            console.log(data.status);
+            if (data.status === 'user id already exists') {
+                setErrorMessage('User ID already exists. Please choose a different one.');
+            } else {
+                setErrorMessage('Registration failed. Please try again.');
+            }
             setRegisterSuccess(false);
         }
     
+    
         setTimeout(() => {
             setRegisterSuccess(null);
+        }, 5000);
         }, 5000);
     }
     return (
         <div>
             <form onSubmit={handleSubmit} className='register-form'>
             <Typography variant='h4' component='h1' gutterBottom sx={{color: '#795548',mb:3, textAlign:'center', textShadow:'1px -1px 1px rgba(0, 0, 0, 0.5);'}}>
+            <Typography variant='h4' component='h1' gutterBottom sx={{color: '#795548',mb:3, textAlign:'center', textShadow:'1px -1px 1px rgba(0, 0, 0, 0.5);'}}>
                         Welcome
                 </Typography>
                 <Grid container spacing={2} className='register-form-container'>
                     <Grid item xs={12} md={6} spacing={5}>
+                        <TextField label='User id' variant='outlined' fullWidth required sx={{mb:2}}
+                            value={userId} onChange={(e) => { setUserId(e.target.value) }} className='custom-textfield' />
                         <TextField label='User id' variant='outlined' fullWidth required sx={{mb:2}}
                             value={userId} onChange={(e) => { setUserId(e.target.value) }} className='custom-textfield' />
                         <TextField label='Username' variant='outlined' fullWidth required sx={{mb:2}}
@@ -73,6 +87,8 @@ function Register() {
                             value={phone} onChange={(e) => { setPhone(e.target.value) }} className='custom-textfield' />
                         <TextField label='Email' variant='outlined' fullWidth sx={{mb:2}}
                             value={email} onChange={(e) => { setEmail(e.target.value) }} className='custom-textfield' />
+                    </Grid>
+                    <Grid item xs={12} md={6} spacing={5}>
                     </Grid>
                     <Grid item xs={12} md={6} spacing={5}>
                         <TextField label='Address' variant='outlined' fullWidth required sx={{mb:2}}
@@ -92,7 +108,9 @@ function Register() {
             {registerSuccess != null && (
                 <Alert severity={registerSuccess ? 'success' : 'error'} sx={{ mt: 3 }}>
                     {registerSuccess ? 'Registration successful!' : errorMessage}
+                    {registerSuccess ? 'Registration successful!' : errorMessage}
                 </Alert>
+            )}
             )}
         </div>
     )

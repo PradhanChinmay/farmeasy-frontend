@@ -27,6 +27,7 @@ function Login() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ userId, password }),
+            body: JSON.stringify({ userId, password }),
         });
 
         const data = await response.json();
@@ -34,6 +35,9 @@ function Login() {
         if (data.status === 'valid user') {
             login(data.userId);
             setLoginSuccess(true);
+            setTimeout(() => {
+                navigate(`/${data.userId}`);
+            }, 1000);
             setTimeout(() => {
                 navigate(`/${data.userId}`);
             }, 1000);
@@ -67,6 +71,7 @@ function Login() {
             </form>
             {loginSuccess != null && (
                 <Alert severity={loginSuccess ? 'success' : 'error'} sx={{ mt: 3 }}>
+                    {loginSuccess ? 'Login successful! Redirecting...': 'Invalid credentials. Please try again.'}
                     {loginSuccess ? 'Login successful! Redirecting...': 'Invalid credentials. Please try again.'}
                 </Alert>
             )}
