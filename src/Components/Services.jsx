@@ -1,25 +1,46 @@
-import React, {useRef} from 'react'
+import React, {useContext, useRef} from 'react'
 import { Typography, Stack, Button, Box } from '@mui/material'
 
 import '../Styles/Services.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../AuthCotext.js';
 
 const Services = () => {
   
   const rentRef = useRef(null);
   const lendRef = useRef(null);
 
-  const scrollToBuy = () => {
+  const { isAuthenticated, userId } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const scrollToRent = () => {
     rentRef.current.scrollIntoView({
         behaviour: 'smooth'
     })
   }
 
-  const scrollToSell = () => {
+  const scrollToLend = () => {
     lendRef.current.scrollIntoView({
         behaviour: 'smooth'
     })
   }
+
+  const handleRentClick = () => {
+    if (isAuthenticated) {
+        navigate(`/${userId}/rent`);
+    } else {
+        navigate('/login');
+    }
+};
+
+const handleLendClick = () => {
+    if (isAuthenticated) {
+        navigate(`/${userId}/lend`);
+    } else {
+        navigate('/login');
+    }
+};
     
   return (
     <div className='services' id='services'>
@@ -39,8 +60,8 @@ const Services = () => {
             alignItems: 'center',
             mb: '5rem'
         }}>
-            <Button variant="outlined" color='success' onClick={scrollToBuy}>Rent on Agro Allies</Button>
-            <Button onClick={scrollToSell} variant="outlined" color='success'>Lend on Agro Allies</Button>
+            <Button variant="outlined" color='success' onClick={scrollToRent}>Rent on Agro Allies</Button>
+            <Button onClick={scrollToLend} variant="outlined" color='success'>Lend on Agro Allies</Button>
         </Stack>
 
         <Stack direction='column' spacing={15}> 
@@ -63,9 +84,7 @@ const Services = () => {
                         serves our planet and our place-based sense of self and sovereignty. We're excited for you to join our mission and put your money 
                         where your heart is!
                     </Typography>
-                    <Link to='/rent'>
-                        <Button variant='contained' sx={{ width: '30%', padding: '10px' }}>Rent Equipments</Button>
-                    </Link>
+                    <Button variant='contained' sx={{ width: '30%', padding: '10px' }} onClick={handleRentClick}>Rent Equipments</Button>
                 </Stack>
             </Box>
 
@@ -74,7 +93,7 @@ const Services = () => {
                 <img src='https://images.unsplash.com/photo-1464454709131-ffd692591ee5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80' alt='sell'/>
                 <Stack direction='column' spacing={3} className='services-lendInfo' sx={{ ml: '0rem', mr: '3rem' }}>
                     <Typography variant='h3' component='div' sx={{ color: 'black' }}>
-                        Sell On Agro Allies
+                        List On FarmEazy
                     </Typography>
                     <Typography variant='paragraph' component='div'>
                         Agro-Allies is a collaborative marketplace hosting multiple farmers and producers together on a local online storefront. Here's how it works:
@@ -86,9 +105,7 @@ const Services = () => {
                         This prepaid, harvest-to-order model reduces waste by ensuring your customers get your freshest goods while you make efficient use of your labor, product, and time.
                         Review our current locations to contact the market hub nearest to you. Your location's Market Hub Manager will invite you to complete a brief training on how to register on FarmDrop.
                     </Typography>
-                    <Link to='/lend'>
-                        <Button variant='contained' sx={{ width: '30%', padding: '10px' }}>Lend Equipments</Button>
-                    </Link>
+                    <Button variant='contained' sx={{ width: '30%', padding: '10px' }} onClick={handleLendClick}>Lend Equipments</Button>
                 </Stack>
             </Box>
 

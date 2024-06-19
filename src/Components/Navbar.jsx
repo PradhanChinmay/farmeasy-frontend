@@ -1,6 +1,8 @@
-import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { AppBar, Avatar, Button, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { AuthContext } from '../AuthCotext.js';
 
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
@@ -10,6 +12,21 @@ import '../Styles/Navbar.css';
 function Navbar() {
 
     const [showNavbar, setShowNavbar] = useState(true);
+    const { isAuthenticated, userId, logout } = useContext(AuthContext);
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+        handleClose();
+        logout();
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -72,9 +89,35 @@ function Navbar() {
                     <ScrollLink to="footer" smooth={true} duration={800}>
                         <Button color="inherit" sx={{color: "#795548",fontWeight: 800}}>Contact Us</Button>
                     </ScrollLink>
-                    <Link to="/login">
-                        <Button color="inherit" className='navbar-loginBtn' sx={{color:'#795548', fontWeight:800}}>Login</Button>
-                    </Link>
+                    {isAuthenticated ? (
+                        <>
+                            <IconButton onClick={handleMenu} color="inherit">
+                                <Avatar>{userId.charAt(0).toUpperCase()}</Avatar>
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}><Link to={`/${userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>View Profile</Link></MenuItem>
+                                <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
+                            </Menu>
+                        </>
+                    ) : (
+                        <Link to="/login">
+                            <Button color="inherit" className='navbar-loginBtn' sx={{ color: '#795548', fontWeight: 800 }}>Login</Button>
+                        </Link>
+                    )}
                 </Stack>
             </Toolbar>
         </AppBar>

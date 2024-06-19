@@ -26,3 +26,11 @@
     align-items: center;
     justify-content: space-around;
 }
+
+.review {
+    background-color: rgb(243, 243, 238);
+    opacity: 0.8;
+    margin-bottom: 1em;
+    padding: 1rem;
+    border-radius: 10px;
+}

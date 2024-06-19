@@ -8,6 +8,8 @@ import LoginPage from './Screen/LoginPage';
 import RegistrationPage from './Screen/RegistrationPage';
 import AboutPage from './Screen/AboutPage';
 import LendEquipmentPage from './Screen/LendEquipmentPage';
+import RentPage from './Screen/RentPage';
+import { AuthProvider } from './AuthCotext';
 
 const router = createBrowserRouter([
   {
@@ -29,14 +31,24 @@ const router = createBrowserRouter([
   {
     path: '/lend',
     element: <LendEquipmentPage />
+  },
+  {
+    path: '/:userId',
+    element: <LandingHomePage />
+  },
+  {
+    path: '/rent',
+    element: <RentPage />
   }
 ]);
 
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router}></RouterProvider>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <RouterProvider router={router}></RouterProvider>
+      </div>
+    </AuthProvider>
   );
 }
 
